@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manasvi Menon — Data Science & Analytics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #F5F2EC;
+    --bg2:     #EDE9E0;
+    --bg3:     #E4DFD4;
+    --border:  #D6D1C6;
+    --border2: #C4BEB1;
+    --text:    #1C1A16;
+    --text2:   #6A6560;
+    --text3:   #9E9890;
+    --btn-bg:  #1C1A16;
+    --btn-fg:  #F5F2EC;
+    --serif:   'Fraunces', Georgia, serif;
+    --sans:    'DM Sans', system-ui, sans-serif;
+    --mono:    'JetBrains Mono', monospace;
+    --r:       20px;
+    --max:     1100px;
+  }
+
+  html { scroll-behavior: smooth; font-size: 18px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  /* ── SCROLL PROGRESS ── */
+  .scroll-bar {
+    position: fixed; top: 0; left: 0;
+    height: 2px; width: 100%;
+    background: var(--text);
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: 2000;
+    transition: transform .05s linear;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 900;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    background: rgba(245,242,236,.85);
+    backdrop-filter: blur(20px) saturate(150%);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s;
+  }
+  nav.scrolled { border-color: var(--border); }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -.01em;
+    flex-shrink: 0;
+  }
+
+  .nav-mid {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 2px;
+  }
+  .nav-mid a {
+    font-size: .82rem;
+    font-weight: 500;
+    color: var(--text2);
+    padding: 6px 14px;
+    border-radius: 100px;
+    transition: color .18s, background .18s;
+  }
+  .nav-mid a:hover, .nav-mid a.active { color: var(--text); background: var(--bg2); }
+
+  .nav-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+  .nav-email {
+    font-family: var(--mono);
+    font-size: .68rem;
+    color: var(--text3);
+    transition: color .18s;
+  }
+  .nav-email:hover { color: var(--text2); }
+  .btn-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--btn-bg); color: var(--btn-fg);
+    font-family: var(--sans); font-size: .8rem; font-weight: 600;
+    padding: 8px 18px; border-radius: 100px;
+    border: none; cursor: pointer;
+    transition: opacity .2s, transform .2s;
+    text-decoration: none;
+  }
+  .btn-pill:hover { opacity: .82; transform: translateY(-1px); }
+  .btn-pill.ghost {
+    background: transparent; color: var(--text2);
+    border: 1px solid var(--border2);
+  }
+  .btn-pill.ghost:hover { border-color: var(--text); color: var(--text); background: var(--bg2); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 120px 40px 64px;
+    gap: 40px;
+  }
+
+  .hero-intro {
+    display: flex;
+    align-items: flex-end;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-avatar {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+  }
+  .hero-meta { flex: 1; }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .hero-role {
+    font-size: .82rem;
+    color: var(--text2);
+  }
+  .hero-year {
+    font-family: var(--mono);
+    font-size: .72rem;
+    color: var(--text3);
+    margin-left: auto;
+    padding-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .hero-heading {
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 6.5vw, 5.6rem);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.05;
+    letter-spacing: -.025em;
+    color: var(--text);
+    max-width: 900px;
+  }
+  .hero-heading span { font-style: normal; font-weight: 700; }
+
+  .hero-bottom {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: end;
+  }
+  .hero-bio {
+    max-width: 520px;
+  }
+  .hero-bio p {
+    font-size: .92rem;
+    color: var(--text2);
+    line-height: 1.8;
+    margin-bottom: 10px;
+  }
+  .hero-bio p strong { color: var(--text); font-weight: 600; }
+  .hero-manifesto {
+    margin-top: 18px;
+    padding: 16px 20px;
+    background: var(--bg2);
+    border-left: 2px solid var(--border2);
+    border-radius: 0 10px 10px 0;
+  }
+  .hero-manifesto p {
+    font-size: .84rem;
+    color: var(--text2);
+    font-style: italic;
+    line-height: 1.75;
+    margin-bottom: 0;
+  }
+  .hero-manifesto strong { color: var(--text); font-style: normal; font-weight: 600; }
+
+  .hero-cta { display: flex; flex-direction: column; align-items: flex-end; gap: 14px; }
+  .hero-since {
+    font-family: var(--mono);
+    font-size: .68rem;
+    color: var(--text3);
+    letter-spacing: .06em;
+  }
+
+  /* ── SHARED ── */
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 40px;
+    max-width: var(--max);
+    margin-left: auto; margin-right: auto;
+  }
+
+  .section {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 72px 40px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: .68rem;
+    color: var(--text3);
+    letter-spacing: .1em;
+    flex-shrink: 0;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .section-tag {
+    font-size: .72rem;
+    font-weight: 500;
+    color: var(--text3);
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -.02em;
+    color: var(--text);
+    margin-bottom: 8px;
+    line-height: 1.15;
+  }
+  .section-sub {
+    font-size: .88rem;
+    color: var(--text2);
+    margin-bottom: 44px;
+    max-width: 560px;
+  }
+
+  /* ── PROJECTS CAROUSEL ── */
+  .projects-carousel { position: relative; }
+  .projects-track-wrap { overflow: hidden; }
+  .projects-track {
+    display: flex;
+    transition: transform .5s cubic-bezier(.16,1,.3,1);
+  }
+  .projects-page {
+    min-width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .carousel-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .carousel-dots { display: flex; gap: 6px; }
+  .carousel-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--border2);
+    cursor: pointer;
+    transition: background .2s, transform .2s;
+    border: none; padding: 0;
+  }
+  .carousel-dot.active { background: var(--text); transform: scale(1.4); }
+  .carousel-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 1px solid var(--border2);
+    background: var(--bg2);
+    color: var(--text2);
+    font-size: .9rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .18s, color .18s, background .18s;
+  }
+  .carousel-btn:hover { border-color: var(--text); color: var(--text); background: var(--bg3); }
+  .carousel-btn:disabled { opacity: .3; cursor: default; pointer-events: none; }
+
+  /* ── PROJECTS GRID (kept for reference) ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .proj-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    transition: border-color .25s, box-shadow .25s, transform .3s cubic-bezier(.16,1,.3,1);
+  }
+  .proj-card:hover {
+    border-color: var(--border2);
+    box-shadow: 0 12px 40px rgba(28,26,22,.1);
+    transform: translateY(-4px);
+  }
+  .proj-thumb {
+    height: 180px;
+    background: var(--bg3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .proj-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .proj-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
+  .proj-date {
+    font-family: var(--mono);
+    font-size: .66rem;
+    color: var(--text3);
+  }
+  .proj-tags { display: flex; gap: 5px; flex-wrap: wrap; }
+  .ptag {
+    font-size: .68rem;
+    font-weight: 500;
+    color: var(--text2);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 2px 9px;
+    border-radius: 100px;
+  }
+  .proj-title {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .proj-desc {
+    font-size: .83rem;
+    color: var(--text2);
+    line-height: 1.7;
+    flex: 1;
+  }
+  .proj-link {
+    margin-top: 16px;
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--text);
+    display: flex; align-items: center; gap: 4px;
+    transition: gap .18s;
+  }
+  .proj-card:hover .proj-link { gap: 8px; }
+
+  /* ── EXPERIENCE ── */
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+  .exp-row {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 32px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+  .exp-row:first-child { border-top: 1px solid var(--border); }
+  .exp-date {
+    font-family: var(--mono);
+    font-size: .72rem;
+    color: var(--text3);
+    padding-top: 4px;
+  }
+  .exp-badge {
+    display: inline-block;
+    font-size: .62rem;
+    font-weight: 600;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 100px;
+    margin-bottom: 8px;
+  }
+  .badge-work { background: #FEF3C7; color: #92400E; border: 1px solid #FDE68A; }
+  .badge-edu  { background: #EDE9FE; color: #5B21B6; border: 1px solid #DDD6FE; }
+  .exp-role {
+    font-size: .98rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+  .exp-org { font-size: .82rem; color: var(--text2); margin-bottom: 8px; }
+  .exp-desc { font-size: .82rem; color: var(--text2); line-height: 1.7; }
+
+  /* ── VENTURES ── */
+  .ventures-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .ven-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 30px 28px;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: border-color .25s, box-shadow .25s, transform .3s cubic-bezier(.16,1,.3,1);
+  }
+  .ven-card:hover {
+    border-color: var(--border2);
+    box-shadow: 0 10px 36px rgba(28,26,22,.09);
+    transform: translateY(-4px);
+  }
+  .ven-icon { font-size: 2rem; margin-bottom: 16px; }
+  .ven-title {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -.01em;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  .ven-desc { font-size: .83rem; color: var(--text2); line-height: 1.7; margin-bottom: 16px; flex: 1; }
+  .ven-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .ven-link {
+    position: absolute; top: 28px; right: 28px;
+    font-size: 1.1rem; color: var(--text3);
+    transition: transform .2s, color .2s;
+  }
+  .ven-card:hover .ven-link { transform: translate(3px,-3px); color: var(--text); }
+
+  /* ── CHATBOT ── */
+  .chatbot-wrap {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 48px;
+    align-items: start;
+  }
+  .chatbot-kicker {
+    font-family: var(--mono);
+    font-size: .68rem;
+    color: var(--text3);
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .chatbot-left h3 {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: -.02em;
+    margin-bottom: 16px;
+    line-height: 1.15;
+  }
+  .chatbot-left p {
+    font-size: .88rem;
+    color: var(--text2);
+    line-height: 1.8;
+    margin-bottom: 10px;
+    max-width: 480px;
+  }
+  .chatbot-pts { display: flex; flex-direction: column; gap: 9px; margin-top: 20px; }
+  .chatbot-pt {
+    display: flex; align-items: center; gap: 10px;
+    font-size: .84rem; color: var(--text2);
+  }
+  .chatbot-pt::before {
+    content: '';
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--text2); flex-shrink: 0;
+  }
+  .chatbot-right {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 8px;
+    box-shadow: 0 8px 32px rgba(28,26,22,.08);
+  }
+  .chatbot-shell {
+    width: 100%; height: 820px;
+    border-radius: 14px; overflow: hidden; background: #ececef;
+  }
+  .chatbot-shell iframe { width: 100%; height: 100%; border: none; display: block; }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 72px;
+    align-items: start;
+  }
+  .contact-left h2 {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -.025em;
+    line-height: 1.15;
+    margin-bottom: 14px;
+  }
+  .contact-left > p {
+    font-size: .88rem; color: var(--text2); line-height: 1.75; margin-bottom: 28px; max-width: 340px;
+  }
+  .contact-socials { display: flex; flex-direction: column; }
+  .contact-social {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+    font-size: .85rem; color: var(--text2);
+    transition: color .18s;
+  }
+  .contact-social:first-child { border-top: 1px solid var(--border); }
+  .contact-social:hover { color: var(--text); }
+  .contact-social-label { font-weight: 500; flex: 1; }
+  .contact-social-val { font-family: var(--mono); font-size: .68rem; color: var(--text3); }
+  .contact-social-arr { font-size: .8rem; color: var(--text3); transition: transform .18s; }
+  .contact-social:hover .contact-social-arr { transform: translate(3px,-3px); color: var(--text); }
+
+  .contact-form { display: flex; flex-direction: column; gap: 14px; }
+  .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: .72rem; font-weight: 600; color: var(--text2);
+    letter-spacing: .04em; text-transform: uppercase;
+  }
+  .field input, .field textarea {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-family: var(--sans); font-size: .88rem; color: var(--text);
+    outline: none; resize: vertical;
+    transition: border-color .18s, box-shadow .18s;
+  }
+  .field input::placeholder, .field textarea::placeholder { color: var(--text3); }
+  .field input:focus, .field textarea:focus {
+    border-color: var(--text);
+    box-shadow: 0 0 0 3px rgba(28,26,22,.07);
+  }
+  .field textarea { min-height: 110px; }
+  .form-foot { display: flex; align-items: center; justify-content: space-between; }
+  .form-note { font-size: .75rem; color: var(--text3); font-style: italic; }
+
+  /* ── FOOTER ── */
+  .footer {
+    max-width: var(--max); margin: 0 auto;
+    padding: 24px 40px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer p { font-family: var(--mono); font-size: .7rem; color: var(--text3); }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: .76rem; color: var(--text3); transition: color .18s; }
+  .footer-links a:hover { color: var(--text); }
+
+  /* ── REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.vis { opacity: 1; transform: none; }
+  .d1 { transition-delay: .07s; }
+  .d2 { transition-delay: .14s; }
+  .d3 { transition-delay: .21s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    nav { padding: 0 24px; }
+    .nav-mid { display: none; }
+    .hero { padding: 100px 24px 52px; }
+    .section { padding: 56px 24px; }
+    hr.divider { margin: 0 24px; }
+    .projects-grid { grid-template-columns: 1fr; }
+.chatbot-wrap { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .ventures-grid { grid-template-columns: 1fr; }
+    .hero-bottom { grid-template-columns: 1fr; }
+    .exp-row { grid-template-columns: 1fr; gap: 6px; }
+    .footer { padding: 20px 24px; flex-direction: column; gap: 12px; text-align: center; }
+    .nav-email { display: none; }
+  }
+  @media (max-width: 600px) {
+.form-2col { grid-template-columns: 1fr; }
+    .hero-heading { font-size: clamp(2.2rem,9vw,3rem); }
+.process-stats { grid-template-columns: 1fr; }
+  }
+  </style>
+</head>
+<body>
+
+<div class="scroll-bar" id="scrollBar"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a class="nav-logo" href="#">Manasvi.</a>
+  <div class="nav-mid">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <a class="nav-email" href="mailto:manasvisanjiv.menon@student.uts.edu.au">manasvisanjiv.menon@student.uts.edu.au</a>
+    <a class="btn-pill" href="#contact">Get in touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap" id="about">
+  <section class="hero">
+    <div class="hero-intro">
+      <img class="hero-avatar" src="manasvi.png" alt="Manasvi Menon">
+      <div class="hero-meta">
+        <span class="hero-name">Manasvi Menon</span>
+        <span class="hero-role">Data Science &amp; Analytics · Available for opportunities · Sydney, AU</span>
+      </div>
+      <span class="hero-year">(2022 - Present)</span>
+    </div>
+
+    <h1 class="hero-heading">
+      Building at the intersection<br>
+      of <span>data</span> &amp; strategy.
+    </h1>
+
+    <div class="hero-bottom">
+      <div class="hero-bio">
+        <p>I'm a <strong>Data Science &amp; Analytics</strong> student at the University of Technology Sydney, skilled in Power BI, Excel Power Query, Python, and SQL. I enjoy working on high impact projects that creates real, tangible value.</p>
+        <p>With experience leading teams across FinTech and not-for-profit startups, I focus on strategy, analytics, and growth. A generalist at heart, I thrive in environments that are intellectually challenging, dynamic, and stimulating.</p>
+        <div class="hero-manifesto">
+          <p>Inspired by <strong>Peter Thiel's</strong> idea of <strong>vertical growth</strong> over horizontal expansion — drawn to problems requiring <strong>first-principles thinking</strong>, originality, and intellectual risk. Working on ideas that go <strong>Zero → One</strong>.</p>
+        </div>
+      </div>
+      <div class="hero-cta">
+        <span class="hero-since">Available · Sydney, AU</span>
+        <a class="btn-pill" href="#projects">See my work ↓</a>
+        <a class="btn-pill ghost" href="resume.pdf" target="_blank">Resume →</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<hr class="divider">
+
+<!-- {01} PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-label reveal">
+    <span class="section-num">{01}</span>
+    <span class="section-line"></span>
+    <span class="section-tag">Featured Projects</span>
+  </div>
+  <h2 class="section-title reveal">My technical work</h2>
+  <p class="section-sub reveal d1">Selected projects, 2023-2026</p>
+
+  <div class="projects-carousel reveal" id="projCarousel">
+    <div class="projects-track-wrap">
+      <div class="projects-track" id="projTrack">
+
+        <!-- PAGE 1 -->
+        <div class="projects-page">
+          <div class="proj-card">
+            <div class="proj-thumb">🏗️</div>
+            <div class="proj-body">
+              <div class="proj-title">PlanCheck: NSW Planning Compliance Checker</div>
+              <p class="proj-desc">Turns a residential address into a buildable envelope, resolving live NSW cadastre and zoning data against ~1,100 rules extracted from council DCP/LEP/SEPP PDFs via an LLM structure-detection pipeline. Setback geometry computed per-edge with Shapely instead of a naive averaged buffer. A companion Rhino/Grasshopper plugin extrudes that envelope into a real 3D mass, so architects get instant site constraints without leaving the tool they already design in. Deployed live on Render + Vercel. Built during a selective residency program.</p>
+              <div style="display:flex; gap:18px;">
+                <a href="https://github.com/ManasviMenon/AutomatedComplianceChecker" target="_blank" class="proj-link">View on GitHub →</a>
+                <a href="https://automated-compliance-checker-liard.vercel.app/" target="_blank" class="proj-link">Try it live →</a>
+              </div>
+            </div>
+          </div>
+
+          <a href="https://github.com/ManasviMenon/airbnb-sydney-elt-pipeline" target="_blank" class="proj-card">
+            <div class="proj-thumb">🗄️</div>
+            <div class="proj-body">
+              <div class="proj-meta">
+                <div class="proj-tags">
+                  <span class="ptag">GCP</span><span class="ptag">Airflow</span><span class="ptag">dbt</span><span class="ptag">PostgreSQL</span>
+                </div>
+              </div>
+              <div class="proj-title">ELT Pipeline for Sydney Rentals Data</div>
+              <p class="proj-desc">Production ELT pipeline ingesting ~1M rows of Sydney Airbnb listings and ABS Census data across 5 DAGs on GCP Cloud Composer, dbt Cloud medallion architecture with SCD Type 2 snapshots and 3 analytical datamarts.</p>
+              <span class="proj-link">View on GitHub →</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/ManasviMenon/ManasviGPT" target="_blank" class="proj-card">
+            <div class="proj-thumb">🤖</div>
+            <div class="proj-body">
+              <div class="proj-meta">
+                <div class="proj-tags">
+                  <span class="ptag">RAG</span><span class="ptag">FAISS</span><span class="ptag">Flask</span><span class="ptag">Groq API</span>
+                </div>
+              </div>
+              <div class="proj-title">ManasviGPT: RAG Chatbot</div>
+              <p class="proj-desc">End-to-end RAG pipeline using FAISS vector search and Sentence Transformers. Responses via Llama 3.1 on Groq API. Deployed live on Render with intent detection, semantic FAQ matching, and scope filtering.</p>
+              <span class="proj-link">View on GitHub →</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/ManasviMenon/options_pricing_engine" target="_blank" class="proj-card">
+            <div class="proj-thumb">💹</div>
+            <div class="proj-body">
+              <div class="proj-meta">
+                <div class="proj-tags">
+                  <span class="ptag">Python</span><span class="ptag">NumPy</span><span class="ptag">SciPy</span><span class="ptag">pandas</span><span class="ptag">Matplotlib</span><span class="ptag">yfinance</span><span class="ptag">pytest</span><span class="ptag">Power BI</span>
+                </div>
+              </div>
+              <div class="proj-title">Black-Scholes Options Pricing Engine</div>
+              <p class="proj-desc">A numerically stable Black-Scholes engine in Python that prices options, computes Greeks, and solves implied volatility, pricing 200-contract chains in under 5 ms with ~63 tests. Validated against live Apple options data (~0.87 IV correlation) with a Power BI dashboard of the volatility surface.</p>
+              <span class="proj-link">View on GitHub →</span>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- PAGE 2 -->
+        <div class="projects-page">
+          <div class="proj-card" style="cursor:default;">
+            <div class="proj-thumb">🗺️</div>
+            <div class="proj-body">
+              <div class="proj-meta">
+                <div class="proj-tags">
+                  <span class="ptag">PyTorch</span><span class="ptag">GNN</span><span class="ptag">Spatio-Temporal</span><span class="ptag">NIBRS</span>
+                </div>
+                <span class="ptag" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A;">In Progress</span>
+              </div>
+              <div class="proj-title">Neighbourhood Crime Risk Forecasting (ST-GNN)</div>
+              <p class="proj-desc">Predicting neighbourhood-level crime risk (low / moderate / high) across 12,694 US law enforcement agencies using a Spatio-Temporal GNN. Jointly learns spatial dependencies via a KNN-Gaussian adjacency graph and temporal patterns via dilated causal convolutions, trained on 34,000+ time steps of NIBRS incident data.</p>
+              <span class="proj-link" style="color:var(--text3);">GitHub coming soon</span>
+            </div>
+          </div>
+
+          <div class="proj-card" style="cursor:default;">
+            <div class="proj-thumb">📈</div>
+            <div class="proj-body">
+              <div class="proj-meta">
+                <div class="proj-tags">
+                  <span class="ptag">TensorFlow</span><span class="ptag">MTL</span><span class="ptag">Transformer</span><span class="ptag">Financial ML</span>
+                </div>
+                <span class="ptag" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A;">In Progress</span>
+              </div>
+              <div class="proj-title">Multi-Task Learning for Financial Risk Prediction</div>
+              <p class="proj-desc">Exploring a two-stage neural network architecture for jointly predicting daily return (μ), volatility (σ), VaR₉₅, and CVaR on 18 years of S&P 500 data. Experimenting with a dense concept adapter layer (Sharpe, Sortino, CVaR₉₅) feeding into a Transformer encoder. Academic research in collaboration with UTS.</p>
+              <span class="proj-link" style="color:var(--text3);">Research in progress</span>
+            </div>
+          </div>
+
+          <a href="https://github.com/ManasviMenon/nyctaxidata/tree/main" target="_blank" class="proj-card">
+            <div class="proj-thumb">🚕</div>
+            <div class="proj-body">
+              <div class="proj-meta">
+                <div class="proj-tags">
+                  <span class="ptag">PySpark</span><span class="ptag">Databricks</span><span class="ptag">SQL</span><span class="ptag">scikit-learn</span>
+                </div>
+              </div>
+              <div class="proj-title">NYC Taxi Big Data Analysis & ML Pipeline</div>
+              <p class="proj-desc">End-to-end big data pipeline processing 10 years of NYC TLC yellow and green taxi records (2014–2024) on Databricks. Ingested and cleaned 100M+ rows via PySpark, removing invalid trips while retaining &gt;90% of data. Answered business questions with SQL and built ML models to predict total fare.</p>
+              <span class="proj-link">View on GitHub →</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/ManasviMenon/bugblock" target="_blank" class="proj-card">
+            <div class="proj-thumb">🐛</div>
+            <div class="proj-body">
+              <div class="proj-meta">
+                <span class="proj-date">2024</span>
+                <div class="proj-tags">
+                  <span class="ptag">Node.js</span><span class="ptag">Python</span><span class="ptag">VS Code API</span><span class="ptag">SQLite</span>
+                </div>
+              </div>
+              <div class="proj-title">BugBlock: VS Code Learning Extension</div>
+              <p class="proj-desc">VS Code extension that turns Python errors into learning moments. On save, BugBlock catches runtime errors, generates a 3-question quiz via Groq AI (Llama 3.3-70b), and locks the editor until you answer.</p>
+              <span class="proj-link">View on GitHub →</span>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <div class="carousel-dots">
+        <button class="carousel-dot active" data-page="0"></button>
+        <button class="carousel-dot" data-page="1"></button>
+      </div>
+      <button class="carousel-btn" id="projPrev" disabled>←</button>
+      <button class="carousel-btn" id="projNext">→</button>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- {03} EXPERIENCE -->
+<section class="section" id="experience">
+  <div class="section-label reveal">
+    <span class="section-num">{03}</span>
+    <span class="section-line"></span>
+    <span class="section-tag">Experience &amp; Education</span>
+  </div>
+  <h2 class="section-title reveal">Where I've worked &amp; studied</h2>
+
+  <div class="exp-list">
+    <div class="exp-row reveal">
+      <div class="exp-date">2026 — May 2026</div>
+      <div>
+        <span class="exp-badge badge-work">Work</span>
+        <div class="exp-role">Founder in Residence</div>
+        <div class="exp-org">Arrayah · Chapter 3 Cohort</div>
+        <p class="exp-desc">Building an AI-powered intelligence layer to solve for the biggest data problem in the architectural compliance space.</p>
+        <a href="https://automated-compliance-checker-liard.vercel.app/" target="_blank" class="proj-link">Check out Version 1.0, built during the residency →</a>
+      </div>
+    </div>
+    <div class="exp-row reveal d1">
+      <div class="exp-date">2026 — Present</div>
+      <div>
+        <span class="exp-badge badge-work">Work</span>
+        <div class="exp-role">IT Support Specialist</div>
+        <div class="exp-org">NSW Department of Education</div>
+      </div>
+    </div>
+    <div class="exp-row reveal d2">
+      <div class="exp-date">2025 — Jan 2026</div>
+      <div>
+        <span class="exp-badge badge-work">Work</span>
+        <div class="exp-role">Research Assistant</div>
+        <div class="exp-org">University of Technology Sydney</div>
+        <p class="exp-desc">Researching the development of a Multi-Task Learning (MTL) neural network model integrating the Transformer Architecture at the intersection of Deep Reinforcement Learning (DRL) and Explainable AI (XAI) for financial risk assessment and portfolio optimization.</p>
+      </div>
+    </div>
+    <div class="exp-row reveal d3">
+      <div class="exp-date">Apr 2024 — Jan 2025</div>
+      <div>
+        <span class="exp-badge badge-work">Work</span>
+        <div class="exp-role">Key Account Manager & Strategic Alliances</div>
+        <div class="exp-org">CoinDCX · Mumbai, India</div>
+        <p class="exp-desc">Worked directly under the AVP to build and scale CoinDCX Prime from 0 to 1. Managed 200+ high-value accounts for founders, CXOs, FMCG, and publicly listed companies with an upward AUM of $100M+. Contributed to the development of high-yielding investment products through business and sales insights. Directed branding and UX strategy for the Prime landing page, and introduced WhatsApp automation for growth marketing.</p>
+      </div>
+    </div>
+    <div class="exp-row reveal d1">
+      <div class="exp-date">Oct 2022 — Feb 2024</div>
+      <div>
+        <span class="exp-badge badge-work">Work</span>
+        <div class="exp-role">Director of Business Development</div>
+        <div class="exp-org">AIESEC · Mumbai, India</div>
+        <p class="exp-desc">Revamped the entire BD vertical and organizational structure, leading a direct team of 30+ and an entity of 160+, while securing B2B partnerships with multinational brands. Achieved 100% sustainability in strategic partnerships, driving ~92% revenue growth and executing high-impact projects with an average profitability rate of ~47.5%. Led 7 cross-functional teams to deliver brand-aligned initiatives, ensuring strong stakeholder management and client servicing for long-term success.</p>
+      </div>
+    </div>
+    <div class="exp-row reveal d2">
+      <div class="exp-date">2022 - 2026</div>
+      <div>
+        <span class="exp-badge badge-edu">Education</span>
+        <div class="exp-role">Master of Data Science &amp; Analytics</div>
+        <div class="exp-org">University of Technology Sydney</div>
+        <p class="exp-desc">Coursework spanning machine learning, Natural Language Processing, Big Data engineering, and Deep learning.</p>
+        <p class="exp-desc" style="margin-top:4px;">Awarded the Academic Excellence Scholarship · Feb 2025 – Jan 2026</p>
+      </div>
+    </div>
+    <div class="exp-row reveal d3">
+      <div class="exp-date"></div>
+      <div>
+        <p class="exp-desc" style="color:var(--text2);">Also holds a Bachelor's degree in Economics and Statistics, with a keen interest in Finance and Data.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- {05} MANASVIGPT -->
+<section class="section" id="chatbot">
+  <div class="section-label reveal">
+    <span class="section-num">{06}</span>
+    <span class="section-line"></span>
+    <span class="section-tag">Live AI Experience</span>
+  </div>
+
+  <div class="chatbot-wrap">
+    <div class="chatbot-left reveal">
+      <div class="chatbot-kicker">Live RAG system · ManasviGPT</div>
+      <h3>Chat with Manasvi's<br>live chatbot.</h3>
+      <p>To offer a more engaging way for recruiters to explore my work, I developed this as my first end-to-end Retrieval-Augmented Generation (RAG) system.</p>
+      <p>Ask it about what I study, the ideas I care about, my availability and the opportunities I'm exploring.</p>
+      <p>It offers a high-level view of my background — deeper discussions on my work are reserved for real conversation.</p>
+      <div class="chatbot-pts">
+        <div class="chatbot-pt">Built by Manasvi</div>
+        <div class="chatbot-pt">Live portfolio assistant</div>
+        <div class="chatbot-pt">Ask about background &amp; interests</div>
+      </div>
+    </div>
+    <div class="chatbot-right reveal d2">
+      <div class="chatbot-shell">
+        <iframe src="https://manasvigpt.online/" title="ManasviGPT" loading="lazy" allow="clipboard-write"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-label reveal">
+    <span class="section-num">{08}</span>
+    <span class="section-line"></span>
+    <span class="section-tag">Let's Connect</span>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <h2>Open to opportunities &amp; interesting conversations.</h2>
+      <p>If you think I might be a good fit for your team, or would like to talk about data, startups, or ideas, I'd love to connect.</p>
+      <div class="contact-socials">
+        <a href="https://www.linkedin.com/public-profile/settings/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact_info%3BARs6HKsVSjy8RgKW3roDlA%3D%3D" target="_blank" class="contact-social">
+          <span class="contact-social-label">LinkedIn</span>
+          <span class="contact-social-val">linkedin.com/in/manasvi</span>
+          <span class="contact-social-arr">↗</span>
+        </a>
+        <a href="https://github.com/ManasviMenon" target="_blank" class="contact-social">
+          <span class="contact-social-label">GitHub</span>
+          <span class="contact-social-val">github.com/ManasviMenon</span>
+          <span class="contact-social-arr">↗</span>
+        </a>
+        <a href="resume.pdf" target="_blank" class="contact-social">
+          <span class="contact-social-label">Resume</span>
+          <span class="contact-social-val">Download PDF</span>
+          <span class="contact-social-arr">↗</span>
+        </a>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <form class="contact-form" action="https://formspree.io/f/xjgapgnp" method="POST">
+        <input type="hidden" name="_subject" value="New Portfolio Message">
+        <div class="form-2col">
+          <div class="field">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name" required>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="your@email.com" required>
+          </div>
+        </div>
+        <div class="field">
+          <label>Subject</label>
+          <input type="text" name="subject" placeholder="What's this about?">
+        </div>
+        <div class="field">
+          <label>Message</label>
+          <textarea name="message" placeholder="Tell me about the opportunity or idea..." required></textarea>
+        </div>
+        <div class="form-foot">
+          <span class="form-note">I'll get back to you as soon as I can.</span>
+          <button type="submit" class="btn-pill">Send Message →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Manasvi Menon · Data Science &amp; Analytics · UTS Sydney · 2026</p>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/public-profile/settings/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact_info%3BARs6HKsVSjy8RgKW3roDlA%3D%3D" target="_blank">LinkedIn</a>
+    <a href="https://github.com/ManasviMenon" target="_blank">GitHub</a>
+    <a href="resume.pdf" target="_blank">Resume</a>
+  </div>
+</footer>
+
+<script>
+// SCROLL PROGRESS
+const scrollBar = document.getElementById('scrollBar');
+window.addEventListener('scroll', () => {
+  scrollBar.style.transform = `scaleX(${window.scrollY / (document.documentElement.scrollHeight - innerHeight)})`;
+}, { passive: true });
+
+// NAV SCROLL STATE + ACTIVE
+const nav = document.getElementById('mainNav');
+const navLinks = document.querySelectorAll('.nav-mid a');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+  let cur = '';
+  document.querySelectorAll('[id]').forEach(el => {
+    if (window.scrollY >= el.offsetTop - 120) cur = el.id;
+  });
+  navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
+}, { passive: true });
+
+// PROJECTS CAROUSEL
+(function() {
+  const track = document.getElementById('projTrack');
+  const prevBtn = document.getElementById('projPrev');
+  const nextBtn = document.getElementById('projNext');
+  const dots = document.querySelectorAll('.carousel-dot');
+  const pages = document.querySelectorAll('.projects-page');
+  let cur = 0;
+  function goTo(n) {
+    cur = n;
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+    prevBtn.disabled = cur === 0;
+    nextBtn.disabled = cur === pages.length - 1;
+  }
+  prevBtn.addEventListener('click', () => goTo(cur - 1));
+  nextBtn.addEventListener('click', () => goTo(cur + 1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.page)));
+})();
+
+// SCROLL REVEAL
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+
+</script>
+</body>
+</html>
