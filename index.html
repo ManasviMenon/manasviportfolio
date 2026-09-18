@@ -729,30 +729,30 @@
             </div>
           </a>
 
-          <a href="https://github.com/ManasviMenon/ManasviGPT" target="_blank" class="proj-card">
-            <div class="proj-thumb">🤖</div>
+          <a href="https://github.com/ManasviMenon/multi-agent-swe-system" target="_blank" class="proj-card">
+            <div class="proj-thumb">🧩</div>
             <div class="proj-body">
               <div class="proj-meta">
                 <div class="proj-tags">
-                  <span class="ptag">RAG</span><span class="ptag">FAISS</span><span class="ptag">Flask</span><span class="ptag">Groq API</span>
+                  <span class="ptag">Multi-Agent</span><span class="ptag">LLM Evals</span><span class="ptag">CI Integration</span><span class="ptag">Docker</span>
                 </div>
               </div>
-              <div class="proj-title">ManasviGPT: RAG Chatbot</div>
-              <p class="proj-desc">End-to-end RAG pipeline using FAISS vector search and Sentence Transformers. Responses via Llama 3.1 on Groq API. Deployed live on Render with intent detection, semantic FAQ matching, and scope filtering.</p>
+              <div class="proj-title">Multi-Agent Bug-Fixing System (SWE-bench-style)</div>
+              <p class="proj-desc">Built a Planner → Coder → Tester → Judge pipeline and ran a rigorous 4-phase experiment to measure whether multi-agent orchestration actually improves LLM bug-fixing on 25 real marshmallow issues. Each phase was pre-registered with a falsifiable hypothesis and scored against a single-agent baseline (24% → 40%), isolating exactly which agent added value and proving the real bottleneck was model capability, not architecture. Full eval harness, per-ticket transcripts, cost/latency tracking, and CI integration.</p>
               <span class="proj-link">View on GitHub →</span>
             </div>
           </a>
 
-          <a href="https://github.com/ManasviMenon/options_pricing_engine" target="_blank" class="proj-card">
-            <div class="proj-thumb">💹</div>
+          <a href="https://github.com/ManasviMenon/Multi-Task-Model-with-Transformers" target="_blank" class="proj-card">
+            <div class="proj-thumb">📈</div>
             <div class="proj-body">
               <div class="proj-meta">
                 <div class="proj-tags">
-                  <span class="ptag">Python</span><span class="ptag">NumPy</span><span class="ptag">SciPy</span><span class="ptag">Power BI</span>
+                  <span class="ptag">TensorFlow</span><span class="ptag">MLflow</span><span class="ptag">FastAPI</span><span class="ptag">Docker</span>
                 </div>
               </div>
-              <div class="proj-title">Black-Scholes Options Pricing Engine</div>
-              <p class="proj-desc">A numerically stable Black-Scholes engine in Python that prices options, computes Greeks, and solves implied volatility, pricing 200-contract chains in under 5 ms with ~63 tests. Validated against live Apple options data (~0.87 IV correlation) with a Power BI dashboard of the volatility surface.</p>
+              <div class="proj-title">Regime-Shift VaR Calibration (Multi-Task Transformer)</div>
+              <p class="proj-desc">A multi-task transformer trained on 18 years of S&amp;P 500 data, jointly predicting return, volatility, VaR₅, and CVaR₅ to test whether a post-hoc VaR calibration holds across market regimes. It doesn't: a frozen offset fails the Kupiec backtest in 4 of 5 walk-forward folds, and no static recalibration setting passes every regime. Shipped with MLflow experiment tracking and a versioned model registry, FastAPI serving with live drift monitoring, Docker, and CI. The research paper is currently in development for publication.</p>
               <span class="proj-link">View on GitHub →</span>
             </div>
           </a>
@@ -776,20 +776,19 @@
             </div>
           </div>
 
-          <div class="proj-card" style="cursor:default;">
-            <div class="proj-thumb">📈</div>
+          <a href="https://github.com/ManasviMenon/options_pricing_engine" target="_blank" class="proj-card">
+            <div class="proj-thumb">💹</div>
             <div class="proj-body">
               <div class="proj-meta">
                 <div class="proj-tags">
-                  <span class="ptag">TensorFlow</span><span class="ptag">MTL</span><span class="ptag">Transformer</span><span class="ptag">Financial ML</span>
+                  <span class="ptag">Python</span><span class="ptag">NumPy</span><span class="ptag">SciPy</span><span class="ptag">Power BI</span>
                 </div>
-                <span class="ptag" style="background:#FEF3C7;color:#92400E;border-color:#FDE68A;">In Progress</span>
               </div>
-              <div class="proj-title">Multi-Task Learning for Financial Risk Prediction</div>
-              <p class="proj-desc">Exploring a two-stage neural network architecture for jointly predicting daily return (μ), volatility (σ), VaR₉₅, and CVaR on 18 years of S&P 500 data. Experimenting with a dense concept adapter layer (Sharpe, Sortino, CVaR₉₅) feeding into a Transformer encoder. Academic research in collaboration with UTS.</p>
-              <span class="proj-link" style="color:var(--text3);">Research in progress</span>
+              <div class="proj-title">Black-Scholes Options Pricing Engine</div>
+              <p class="proj-desc">A numerically stable Black-Scholes engine in Python that prices options, computes Greeks, and solves implied volatility, pricing 200-contract chains in under 5 ms with ~63 tests. Validated against live Apple options data (~0.87 IV correlation) with a Power BI dashboard of the volatility surface.</p>
+              <span class="proj-link">View on GitHub →</span>
             </div>
-          </div>
+          </a>
 
           <a href="https://github.com/ManasviMenon/nyctaxidata/tree/main" target="_blank" class="proj-card">
             <div class="proj-thumb">🚕</div>
@@ -816,6 +815,20 @@
               </div>
               <div class="proj-title">BugBlock: VS Code Learning Extension</div>
               <p class="proj-desc">VS Code extension that turns Python errors into learning moments. On save, BugBlock catches runtime errors, generates a 3-question quiz via Groq AI (Llama 3.3-70b), and locks the editor until you answer.</p>
+              <span class="proj-link">View on GitHub →</span>
+            </div>
+          </a>
+
+          <a href="https://github.com/ManasviMenon/ManasviGPT" target="_blank" class="proj-card">
+            <div class="proj-thumb">🤖</div>
+            <div class="proj-body">
+              <div class="proj-meta">
+                <div class="proj-tags">
+                  <span class="ptag">RAG</span><span class="ptag">FAISS</span><span class="ptag">Flask</span><span class="ptag">Groq API</span>
+                </div>
+              </div>
+              <div class="proj-title">ManasviGPT: RAG Chatbot</div>
+              <p class="proj-desc">End-to-end RAG pipeline using FAISS vector search and Sentence Transformers. Responses via Llama 3.1 on Groq API. Deployed live on Render with intent detection, semantic FAQ matching, and scope filtering.</p>
               <span class="proj-link">View on GitHub →</span>
             </div>
           </a>
