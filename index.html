@@ -503,6 +503,31 @@
   }
   .chatbot-shell iframe { width: 100%; height: 100%; border: none; display: block; }
 
+  /* ── GALLERY CAROUSEL ── */
+  .gallery-carousel { position: relative; }
+  .gallery-track-wrap { overflow: hidden; border-radius: var(--r); }
+  .gallery-track {
+    display: flex;
+    transition: transform .5s cubic-bezier(.16,1,.3,1);
+  }
+  .gallery-slide {
+    min-width: 100%;
+    position: relative;
+  }
+  .gallery-slide img {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    background: var(--bg3);
+  }
+  .gallery-caption {
+    padding: 18px 4px 0;
+    font-size: .86rem;
+    color: var(--text2);
+    line-height: 1.6;
+    max-width: 700px;
+  }
+
   /* ── CONTACT ── */
   .contact-grid {
     display: grid;
@@ -596,6 +621,7 @@
     .ventures-grid { grid-template-columns: 1fr; }
     .hero-bottom { grid-template-columns: 1fr; }
     .exp-row { grid-template-columns: 1fr; gap: 6px; }
+    .gallery-slide img { height: 320px; }
     .footer { padding: 20px 24px; flex-direction: column; gap: 12px; text-align: center; }
     .nav-email { display: none; }
   }
@@ -952,10 +978,70 @@
 
 <hr class="divider">
 
+<!-- {04} GALLERY -->
+<section class="section" id="gallery">
+  <div class="section-label reveal">
+    <span class="section-num">{04}</span>
+    <span class="section-line"></span>
+    <span class="section-tag">Behind The Scenes</span>
+  </div>
+  <h2 class="section-title reveal">Moments along the way</h2>
+
+  <div class="gallery-carousel reveal" id="galleryCarousel">
+    <div class="gallery-track-wrap">
+      <div class="gallery-track" id="galleryTrack">
+        <div class="gallery-slide">
+          <img src="arrayah.png" alt="Demo Day at the Chapter 3 Residency Cohort">
+          <p class="gallery-caption">Demo Day at the Chapter 3 Residency Cohort.</p>
+        </div>
+        <div class="gallery-slide">
+          <img src="club.jpeg" alt="Cuz Y Not! Club">
+          <p class="gallery-caption">Founded the Cuz Y Not! Club, a community for people who try new skills every week but don't have the place or people to do it with.</p>
+        </div>
+        <div class="gallery-slide">
+          <img src="Co-working.jpeg" alt="Co-working at the Blackbird office">
+          <p class="gallery-caption">Co-working at the Blackbird office in Sydney.</p>
+        </div>
+        <div class="gallery-slide">
+          <img src="demoday.png" alt="Demoing the Compliance Co-pilot">
+          <p class="gallery-caption">Demoing our Compliance Co-pilot solution for design compliance in front of investors at Blackbird.</p>
+        </div>
+        <div class="gallery-slide">
+          <img src="dinner.png" alt="Big Problems Club dinner">
+          <p class="gallery-caption">Got accepted to the Big Problems Club, a dinner event hosted by Startmate for women building in frontier tech.</p>
+        </div>
+        <div class="gallery-slide">
+          <img src="finalist.jpeg" alt="Hackathon finalist">
+          <p class="gallery-caption">Competed in my first ever hackathon against 60+ teams and made it to the finals.</p>
+        </div>
+        <div class="gallery-slide">
+          <img src="phoebe.jpeg" alt="With Startmate CEO Phoebe Pincus">
+          <p class="gallery-caption">With Startmate CEO Phoebe Pincus, discussing our shared interests and ambitions.</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <div class="carousel-dots" id="galleryDots">
+        <button class="carousel-dot active" data-page="0"></button>
+        <button class="carousel-dot" data-page="1"></button>
+        <button class="carousel-dot" data-page="2"></button>
+        <button class="carousel-dot" data-page="3"></button>
+        <button class="carousel-dot" data-page="4"></button>
+        <button class="carousel-dot" data-page="5"></button>
+        <button class="carousel-dot" data-page="6"></button>
+      </div>
+      <button class="carousel-btn" id="galleryPrev" disabled>←</button>
+      <button class="carousel-btn" id="galleryNext">→</button>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
 <!-- CONTACT -->
 <section class="section" id="contact">
   <div class="section-label reveal">
-    <span class="section-num">{04}</span>
+    <span class="section-num">{05}</span>
     <span class="section-line"></span>
     <span class="section-tag">Let's Connect</span>
   </div>
@@ -1041,25 +1127,27 @@ window.addEventListener('scroll', () => {
   navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
 }, { passive: true });
 
-// PROJECTS CAROUSEL
-(function() {
-  const track = document.getElementById('projTrack');
-  const prevBtn = document.getElementById('projPrev');
-  const nextBtn = document.getElementById('projNext');
-  const dots = document.querySelectorAll('.carousel-dot');
-  const pages = document.querySelectorAll('.projects-page');
+// CAROUSELS (projects + gallery)
+function initCarousel({ trackId, prevId, nextId, dotsSelector, slideSelector }) {
+  const track = document.getElementById(trackId);
+  const prevBtn = document.getElementById(prevId);
+  const nextBtn = document.getElementById(nextId);
+  const dots = track.closest('.carousel-nav, [id$="Carousel"], section').querySelectorAll(dotsSelector);
+  const slides = track.querySelectorAll(slideSelector);
   let cur = 0;
   function goTo(n) {
     cur = n;
     track.style.transform = `translateX(-${cur * 100}%)`;
     dots.forEach((d, i) => d.classList.toggle('active', i === cur));
     prevBtn.disabled = cur === 0;
-    nextBtn.disabled = cur === pages.length - 1;
+    nextBtn.disabled = cur === slides.length - 1;
   }
   prevBtn.addEventListener('click', () => goTo(cur - 1));
   nextBtn.addEventListener('click', () => goTo(cur + 1));
   dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.page)));
-})();
+}
+initCarousel({ trackId: 'projTrack', prevId: 'projPrev', nextId: 'projNext', dotsSelector: '.carousel-dot', slideSelector: '.projects-page' });
+initCarousel({ trackId: 'galleryTrack', prevId: 'galleryPrev', nextId: 'galleryNext', dotsSelector: '.carousel-dot', slideSelector: '.gallery-slide' });
 
 // SCROLL REVEAL
 const ro = new IntersectionObserver(entries => {
